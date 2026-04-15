@@ -89,8 +89,8 @@ export function FeaturedAnimalsSection({ animals }: FeaturedAnimalsSectionProps)
                                             {lead.shortDescription}
                                         </p>
                                     </div>
-                                    <div className="flex-shrink-0 w-12 h-12 rounded-full border border-ink/20 group-hover:bg-ink group-hover:border-ink flex items-center justify-center transition-all">
-                                        <ArrowUpRight className="w-4 h-4 text-ink group-hover:text-cream transition-colors" />
+                                    <div className="flex-shrink-0 w-12 h-12 rounded-full border border-ink/25 bg-cream/60 text-ink group-hover:bg-heartbeat-clay group-hover:border-heartbeat-clay group-hover:text-cream flex items-center justify-center transition-[background-color,border-color,color] duration-300">
+                                        <ArrowUpRight className="w-4 h-4" strokeWidth={2} />
                                     </div>
                                 </div>
                             </Link>

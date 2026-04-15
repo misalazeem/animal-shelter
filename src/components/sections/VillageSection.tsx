@@ -66,7 +66,7 @@ export function VillageSection() {
                 <div className="border-t border-paper-border">
                     {actions.map((action) => {
                         const content = (
-                            <div className="grid grid-cols-12 gap-x-6 gap-y-4 md:gap-x-8 lg:gap-x-10 items-start py-10 md:py-14 group">
+                            <div className="grid grid-cols-12 gap-x-6 gap-y-4 md:gap-x-8 lg:gap-x-10 items-start py-10 md:py-14 px-5 md:px-8 lg:px-10 group">
                                 <div className="col-span-2 md:col-span-1">
                                     <div className="font-mono text-[11px] tracking-[0.2em] uppercase text-timber-gold pt-2">
                                         {action.num}
@@ -86,8 +86,8 @@ export function VillageSection() {
                                     </p>
                                 </div>
                                 <div className="col-span-12 md:col-span-1 md:justify-self-end md:pt-2">
-                                    <div className="w-11 h-11 rounded-full border border-ink/20 group-hover:bg-ink group-hover:border-ink flex items-center justify-center transition-all duration-300">
-                                        <ArrowUpRight className="w-4 h-4 text-ink group-hover:text-cream transition-colors" />
+                                    <div className="w-11 h-11 rounded-full border border-ink/25 bg-cream/60 text-ink group-hover:bg-heartbeat-clay group-hover:border-heartbeat-clay group-hover:text-cream flex items-center justify-center transition-[background-color,border-color,color] duration-300">
+                                        <ArrowUpRight className="w-4 h-4" strokeWidth={2} />
                                     </div>
                                 </div>
                             </div>

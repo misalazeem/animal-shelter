@@ -84,8 +84,8 @@ export function AnimalCard({ animal }: AnimalCardProps) {
                                 {animal.name}
                             </h3>
                         </div>
-                        <div className="flex-shrink-0 w-10 h-10 rounded-full border border-ink/20 group-hover:bg-ink group-hover:border-ink flex items-center justify-center transition-all">
-                            <ArrowUpRight className="w-3.5 h-3.5 text-ink group-hover:text-cream transition-colors" />
+                        <div className="flex-shrink-0 w-10 h-10 rounded-full border border-ink/25 bg-cream/60 text-ink group-hover:bg-heartbeat-clay group-hover:border-heartbeat-clay group-hover:text-cream flex items-center justify-center transition-[background-color,border-color,color] duration-300">
+                            <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2} />
                         </div>
                     </div>
 
