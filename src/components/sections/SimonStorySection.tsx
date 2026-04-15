@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { useRef } from 'react';
 import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
 
 export function SimonStorySection() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -12,96 +13,99 @@ export function SimonStorySection() {
         offset: ['start end', 'end start'],
     });
 
-    const imageY = useTransform(scrollYProgress, [0, 1], ['10%', '-10%']);
+    const imageY = useTransform(scrollYProgress, [0, 1], ['-5%', '5%']);
 
     return (
-        <section ref={containerRef} className="relative min-h-screen bg-rescue-olive overflow-hidden">
-            {/* Full-bleed image side */}
-            <div className="absolute inset-0 lg:left-1/2 lg:right-0">
-                <motion.div style={{ y: imageY }} className="relative w-full h-full">
-                    <Image
-                        src="/cats/PXL_20241004_005144370.jpg"
-                        alt="Simon - The cat who started it all"
-                        fill
-                        className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-rescue-olive via-rescue-olive/80 to-transparent lg:via-rescue-olive/60" />
-                </motion.div>
-            </div>
+        <section id="origin" ref={containerRef} className="relative py-28 md:py-40 bg-rescue-olive text-cream overflow-hidden">
+            {/* Subtle texture overlay */}
+            <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{
+                backgroundImage: `radial-gradient(circle at 30% 20%, rgba(217,119,6,0.4), transparent 60%)`,
+            }} />
 
-            {/* Content */}
-            <div className="container mx-auto px-6 md:px-12 relative z-10">
-                <div className="lg:w-1/2 min-h-screen flex items-center py-20 md:py-32">
-                    <div className="max-w-lg">
-                        {/* Label */}
-                        <motion.span
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            className="text-timber-gold text-xs md:text-sm font-medium tracking-[0.3em] uppercase block mb-6"
-                        >
-                            The Origin Story
-                        </motion.span>
+            <div className="container mx-auto relative z-10">
+                {/* Chapter mark */}
+                <div className="chapter-mark mb-12 md:mb-16" style={{ color: 'var(--timber-gold-light)' }}>
+                    <span className="chapter-mark__num" style={{ color: 'var(--timber-gold)' }}>04</span>
+                    <span>The Origin</span>
+                </div>
 
-                        {/* Headline */}
-                        <motion.h2
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
-                            className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-[1.05] mb-8"
-                        >
-                            It Started
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                    {/* Portrait image */}
+                    <div className="lg:col-span-5 lg:sticky lg:top-28">
+                        <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+                            <motion.div style={{ y: imageY }} className="absolute inset-0">
+                                <Image
+                                    src="/cats/PXL_20241004_005144370.jpg"
+                                    alt="Simon — the first Random Rescue"
+                                    fill
+                                    className="object-cover"
+                                    sizes="(max-width: 1024px) 100vw, 42vw"
+                                />
+                            </motion.div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
+
+                            {/* Caption plate */}
+                            <div className="absolute bottom-0 left-0 right-0 p-6">
+                                <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-cream/60 mb-1">
+                                    Founding rescue · 2018
+                                </div>
+                                <div className="font-display text-3xl text-cream">Simon</div>
+                            </div>
+                        </div>
+
+                        {/* Byline */}
+                        <div className="mt-4 flex items-center justify-between font-mono text-[10px] tracking-[0.2em] uppercase text-cream/50">
+                            <span>Photographed in foster</span>
+                            <span>Mother&apos;s Day, 2018</span>
+                        </div>
+                    </div>
+
+                    {/* Story column */}
+                    <div className="lg:col-span-7">
+                        <h2 className="font-display text-[clamp(2.5rem,5.5vw,5rem)] leading-[0.98] tracking-[-0.02em] text-cream mb-10">
+                            It started
                             <br />
-                            with <span className="text-timber-gold">Simon</span>
-                        </motion.h2>
+                            with a wounded
+                            <br />
+                            <span className="text-timber-gold-light">orange tabby.</span>
+                        </h2>
 
-                        {/* Story */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2 }}
-                            className="space-y-6 text-white/70 text-lg leading-relaxed mb-10"
-                        >
-                            <p>
-                                Mother's Day, 2018. A wounded orange tabby crossed our path.
-                                Tired of the streets, tired of fighting. We named him Simon.
+                        <div className="space-y-6 text-lg leading-[1.75] text-cream max-w-[58ch]">
+                            <p className="drop-cap-light">
+                                Mother&apos;s Day, 2018. A bleeding cat on a fence caught our eye.
+                                He hissed, ran, and disappeared. Two weeks later he reappeared
+                                under our car — too tired to fight anymore. We named him Simon.
                             </p>
                             <p>
-                                He was a "couch surfer," bouncing between homes—yet he showed us
-                                that even the most jaded street cat wants love, comfort, and safety.
+                                His rescue was a rollercoaster: vet bills, foster hopping,
+                                behavioral hurdles. But he showed us that even the most jaded
+                                street cat wants love. He couch-surfed between homes, landing
+                                wherever he could, as long as it wasn&apos;t the streets.
                             </p>
-                        </motion.div>
+                        </div>
 
-                        {/* Quote */}
-                        <motion.blockquote
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.3 }}
-                            className="border-l-2 border-timber-gold pl-6 mb-10"
+                        {/* Pull quote */}
+                        <blockquote
+                            className="mt-14 mb-10 pl-8 border-l-[3px]"
+                            style={{ borderLeftColor: 'var(--timber-gold-light)' }}
                         >
-                            <p className="text-white text-xl md:text-2xl font-heading italic">
-                                "Simon was the leap of faith that started it all."
+                            <p className="font-display text-[clamp(1.75rem,3.5vw,2.75rem)] leading-[1.15] text-cream">
+                                &ldquo;Simon was the leap of faith
+                                <br />
+                                <span className="text-timber-gold-light">that started it all.&rdquo;</span>
                             </p>
-                        </motion.blockquote>
+                            <footer className="font-mono text-[10px] tracking-[0.2em] uppercase text-cream/60 mt-5">
+                                — Hailey Kartash, Founder
+                            </footer>
+                        </blockquote>
 
-                        {/* CTA */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.4 }}
+                        <Link
+                            href="/about#simon"
+                            className="group inline-flex items-center gap-3 mt-6 font-mono text-[11px] tracking-[0.18em] uppercase text-cream hover:text-timber-gold-light transition-colors"
                         >
-                            <Link
-                                href="/about#simon"
-                                className="group inline-flex items-center gap-3 text-white font-semibold text-sm tracking-wide hover:text-timber-gold transition-colors"
-                            >
-                                READ SIMON'S FULL STORY
-                                <span className="group-hover:translate-x-2 transition-transform">→</span>
-                            </Link>
-                        </motion.div>
+                            <span>Read the full story</span>
+                            <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -1,22 +1,28 @@
 import type { Metadata } from "next";
-import { Merriweather, Nunito } from "next/font/google";
+import { Calistoga, Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
-import { ParticleCanvas } from "@/components/particles/ParticleCanvas";
 
-const merriweather = Merriweather({
+const calistoga = Calistoga({
   subsets: ["latin"],
-  weight: ["300", "400", "700", "900"],
-  variable: "--font-heading",
+  weight: ["400"],
+  variable: "--font-display",
   display: "swap",
 });
 
-const nunito = Nunito({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-body",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -73,7 +79,6 @@ export const metadata: Metadata = {
     description:
       "Foster home-based cat rescue. If we can help, we will.",
     images: ["/og-image.jpg"],
-    creator: "@randomrescuer",
   },
   robots: {
     index: true,
@@ -114,14 +119,14 @@ const jsonLd = {
   },
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+1-555-123-4567",
     contactType: "customer service",
     email: "info@randomrescuer.org",
+    areaServed: "Toronto, ON",
   },
   sameAs: [
-    "https://facebook.com/randomrescuer",
-    "https://instagram.com/randomrescuer",
-    "https://twitter.com/randomrescuer",
+    "https://www.facebook.com/randomrescuer7/",
+    "https://www.instagram.com/randomrescuer/",
+    "https://linktr.ee/randomrescuer",
   ],
   nonprofitStatus: "Nonprofit501c3",
 };
@@ -140,18 +145,11 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${merriweather.variable} ${nunito.variable} font-body antialiased relative`}
+        className={`${calistoga.variable} ${inter.variable} ${jetbrainsMono.variable} font-body antialiased relative bg-cream text-ink`}
       >
-        {/* Particle canvas - absolute bottom layer */}
-        <ParticleCanvas particleCount={40} />
-
-        {/* Main wrapper for all content above particles */}
-        <div className="relative z-10">
-          <Navigation />
-          <main>{children}</main>
-          <Footer />
-        </div>
-
+        <Navigation />
+        <main>{children}</main>
+        <Footer />
         <Analytics />
       </body>
     </html>

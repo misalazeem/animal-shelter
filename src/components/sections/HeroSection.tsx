@@ -4,7 +4,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
-import { ArrowDown, Heart } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import { donateUrl } from '@/lib/links';
 
 export function HeroSection() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -13,141 +14,151 @@ export function HeroSection() {
         offset: ["start start", "end start"]
     });
 
-    const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
-    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-    const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+    const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
+    const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.06]);
 
     return (
-        <section ref={containerRef} className="relative h-screen w-full overflow-hidden bg-black">
-            {/* Full-bleed Hero Image with Parallax */}
-            <motion.div
-                style={{ y, scale }}
-                className="absolute inset-0"
-            >
-                <Image
-                    src="/cats/IMG-20240912-WA0006.jpg"
-                    alt="Sully - A rescued orange tabby"
-                    fill
-                    className="object-cover"
-                    priority
-                    quality={90}
-                />
-                {/* Dramatic gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
-                {/* Top gradient for nav readability */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-transparent" />
-            </motion.div>
+        <section
+            ref={containerRef}
+            className="relative w-full bg-cream overflow-hidden pt-32 md:pt-40 pb-16 md:pb-24"
+        >
+            {/* Masthead strip */}
+            <div className="container mx-auto mb-12 md:mb-16">
+                <div className="flex items-center justify-between gap-4 text-ink-muted pb-5 border-b border-paper-border">
+                    <span className="font-mono text-[9px] md:text-[10px] tracking-[0.2em] uppercase">
+                        Vol. VII · Est. 2018
+                    </span>
+                    <span className="font-mono text-[9px] md:text-[10px] tracking-[0.2em] uppercase hidden sm:block">
+                        Toronto, ON · Canada
+                    </span>
+                    <span className="font-mono text-[9px] md:text-[10px] tracking-[0.2em] uppercase">
+                        Foster-Based
+                    </span>
+                </div>
+            </div>
 
-            {/* Content */}
-            <motion.div
-                style={{ opacity }}
-                className="relative z-10 h-full flex flex-col justify-end pb-20 md:pb-32"
-            >
-                <div className="container mx-auto px-6 md:px-12">
-                    <div className="max-w-4xl">
-                        {/* Subtle label */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5, duration: 0.8 }}
-                            className="mb-6"
-                        >
-                            <span className="text-timber-gold text-sm md:text-base font-medium tracking-[0.2em] uppercase">
-                                Foster-Based Cat Rescue
-                            </span>
-                        </motion.div>
+            {/* Main grid: text + image */}
+            <div className="container mx-auto relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                    {/* Text column */}
+                    <div className="lg:col-span-7 flex flex-col ">
+                        {/* Chapter mark */}
+                        <div className="chapter-mark mb-8 md:mb-10">
+                            <span className="chapter-mark__num">01</span>
+                            <span>The Cover Story</span>
+                        </div>
 
-                        {/* Main headline - MASSIVE */}
-                        <motion.h1
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.7, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                            className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.95] mb-8"
-                        >
+                        {/* Display headline — sized to avoid overflow */}
+                        <h1 className="font-display text-[clamp(2.75rem,8vw,6.5rem)] leading-[0.94] tracking-[-0.02em] text-ink mb-8">
                             Unexpected
                             <br />
-                            <span className="text-timber-gold">Rescues.</span>
-                        </motion.h1>
+                            <span className="text-heartbeat-clay">rescues.</span>
+                            <br />
+                            <span className="text-ink-soft">Unconditional love.</span>
+                        </h1>
 
-                        {/* Subtext */}
-                        <motion.p
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.9, duration: 0.8 }}
-                            className="text-white/70 text-lg md:text-xl max-w-xl leading-relaxed mb-10"
-                        >
-                            Where every overlooked cat finds compassion.
-                            Seniors, medical cases, the ones others pass by—we see them.
-                        </motion.p>
+                        {/* Lead paragraph */}
+                        <p className="text-base md:text-lg text-ink-soft leading-[1.7] max-w-[52ch] mb-9">
+                            A foster home-based cat rescue born from a single wounded tabby named Simon.
+                            We care for seniors, medical cases, and the overlooked adults the streets left behind.
+                        </p>
 
-                        {/* CTA */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1.1, duration: 0.8 }}
-                            className="flex flex-wrap gap-4"
-                        >
+                        {/* CTAs */}
+                        <div className="flex flex-wrap gap-3 mb-10">
                             <Link
                                 href="/animals"
-                                className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-semibold text-sm tracking-wide hover:bg-timber-gold transition-all duration-300"
+                                className="group inline-flex items-center gap-2 px-7 py-4 bg-ink text-cream font-mono text-[10px] md:text-[11px] tracking-[0.18em] uppercase rounded-full hover:bg-heartbeat-clay transition-all duration-300"
                             >
-                                MEET OUR CATS
-                                <span className="group-hover:translate-x-1 transition-transform">→</span>
+                                Meet our cats
+                                <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
                             </Link>
-                            <Link
-                                href="/donate"
-                                className="inline-flex items-center gap-3 px-8 py-4 border border-white/30 text-white font-semibold text-sm tracking-wide hover:bg-white/10 hover:border-white/50 transition-all duration-300"
+                            <a
+                                href={donateUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group inline-flex items-center gap-2 px-7 py-4 bg-transparent text-ink font-mono text-[10px] md:text-[11px] tracking-[0.18em] uppercase border border-ink/30 rounded-full hover:bg-ink hover:text-cream hover:border-ink transition-all duration-300"
                             >
-                                <Heart className="w-4 h-4" />
-                                SUPPORT THE MISSION
-                            </Link>
-                        </motion.div>
-                    </div>
-                </div>
+                                Support the mission
+                                <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
+                            </a>
+                        </div>
 
-                {/* Scroll indicator */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 2 }}
-                    className="absolute bottom-8 left-1/2 -translate-x-1/2"
-                >
-                    <motion.div
-                        animate={{ y: [0, 8, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className="flex flex-col items-center gap-2 text-white/40"
-                    >
-                        <span className="text-[10px] tracking-[0.3em] uppercase">Scroll</span>
-                        <ArrowDown className="w-4 h-4" />
-                    </motion.div>
-                </motion.div>
-            </motion.div>
-
-            {/* Stats bar at bottom */}
-            <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.3, duration: 0.8 }}
-                className="absolute bottom-0 left-0 right-0 z-20"
-            >
-                <div className="bg-black/80 backdrop-blur-md border-t border-white/10">
-                    <div className="container mx-auto px-6 md:px-12">
-                        <div className="grid grid-cols-3 divide-x divide-white/10">
+                        {/* Stats strip */}
+                        <div className="grid grid-cols-3 gap-4 max-w-lg border-t border-paper-border pt-6">
                             {[
-                                { num: '200+', label: 'CATS RESCUED' },
-                                { num: '2018', label: 'FOUNDED' },
-                                { num: '50+', label: 'FOSTER HOMES' },
+                                { num: '200+', label: 'Rescued' },
+                                { num: '2018', label: 'Founded' },
+                                { num: '50+', label: 'Fosters' },
                             ].map((stat) => (
-                                <div key={stat.label} className="py-5 md:py-6 text-center">
-                                    <div className="text-white text-2xl md:text-3xl font-bold">{stat.num}</div>
-                                    <div className="text-white/40 text-[10px] md:text-xs tracking-[0.15em] mt-1">{stat.label}</div>
+                                <div key={stat.label}>
+                                    <div className="font-display text-3xl md:text-4xl text-ink leading-none">
+                                        {stat.num}
+                                    </div>
+                                    <div className="font-mono text-[9px] md:text-[10px] tracking-[0.18em] uppercase text-ink-muted mt-2">
+                                        {stat.label}
+                                    </div>
                                 </div>
                             ))}
                         </div>
                     </div>
+
+                    {/* Image column */}
+                    <div className="lg:col-span-5 relative lg:mt-2">
+                        <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+                            <motion.div
+                                style={{ y: imgY, scale: imgScale }}
+                                className="absolute inset-0"
+                            >
+                                <Image
+                                    src="/cats/IMG-20240912-WA0006.jpg"
+                                    alt="Sully — a rescued orange tabby cat"
+                                    fill
+                                    className="object-cover"
+                                    priority
+                                    quality={92}
+                                    sizes="(max-width: 1024px) 100vw, 42vw"
+                                />
+                            </motion.div>
+                            {/* Warm vignette */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-ink/5 to-transparent pointer-events-none" />
+
+                            {/* Caption plate */}
+                            <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7">
+                                <div className="flex items-end justify-between gap-4">
+                                    <div className="min-w-0">
+                                        <div className="font-mono text-[9px] md:text-[10px] tracking-[0.2em] uppercase text-cream/70 mb-1">
+                                            Meet
+                                        </div>
+                                        <div className="font-display text-3xl md:text-4xl text-cream leading-none">
+                                            Sully
+                                        </div>
+                                        <div className="font-body text-xs text-cream/70 mt-1.5 truncate">
+                                            Orange tabby · Asthmatic · Looking for home
+                                        </div>
+                                    </div>
+                                    <Link
+                                        href="/animals/sully"
+                                        className="flex items-center justify-center w-11 h-11 rounded-full bg-cream text-ink hover:bg-heartbeat-clay hover:text-cream transition-colors flex-shrink-0"
+                                        aria-label="Meet Sully"
+                                    >
+                                        <ArrowUpRight className="w-4 h-4" />
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Small caption strip */}
+                        <div className="flex items-center justify-between mt-3 pl-1 gap-4">
+                            <span className="font-mono text-[9px] md:text-[10px] tracking-[0.18em] uppercase text-ink-muted">
+                                Cover · Issue 01
+                            </span>
+                            <span className="font-mono text-[9px] md:text-[10px] tracking-[0.18em] uppercase text-ink-muted">
+                                Foster home
+                            </span>
+                        </div>
+                    </div>
                 </div>
-            </motion.div>
+            </div>
         </section>
     );
 }

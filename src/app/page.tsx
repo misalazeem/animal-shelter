@@ -4,6 +4,7 @@ import { SimonStorySection } from "@/components/sections/SimonStorySection";
 import { PhilosophySection } from "@/components/sections/PhilosophySection";
 import { FeaturedAnimalsSection } from "@/components/sections/FeaturedAnimalsSection";
 import { VillageSection } from "@/components/sections/VillageSection";
+import { ConnectSection } from "@/components/sections/ConnectSection";
 import { animals } from "@/data/animals";
 import { Metadata } from "next";
 
@@ -22,6 +23,7 @@ export default function HomePage() {
       <SimonStorySection />
       <PhilosophySection />
       <VillageSection />
+      <ConnectSection />
     </main>
   );
 }

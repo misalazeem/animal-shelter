@@ -16,7 +16,6 @@ import {
     Instagram,
     Twitter,
     Check,
-    X,
     Mail,
     Phone,
 } from 'lucide-react';

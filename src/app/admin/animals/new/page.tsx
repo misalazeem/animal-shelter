@@ -45,7 +45,6 @@ export default function AddAnimalPage() {
         goodWithCats: false,
         goodWithDogs: false,
         goodWithChildren: false,
-        adoptionFee: '',
         featured: false,
     });
 
@@ -71,13 +70,11 @@ export default function AddAnimalPage() {
     };
 
     const generateCaption = () => {
-        return `🐱 Meet ${formData.name || '[Name]'}! 
+        return `🐱 Meet ${formData.name || '[Name]'}!
 
 This ${formData.age || 'adorable'} ${formData.breed || 'cat'} is looking for their forever home! ${formData.shortDescription || ''}
 
 ${formData.personality.length > 0 ? `Personality: ${formData.personality.join(', ')}` : ''}
-
-${formData.adoptionFee ? `Adoption fee: $${formData.adoptionFee}` : ''}
 
 🏠 Apply to adopt at randomrescuer.org/animals
 
@@ -275,18 +272,6 @@ ${formData.adoptionFee ? `Adoption fee: $${formData.adoptionFee}` : ''}
                                         />
                                     </div>
 
-                                    <div>
-                                        <label className="block text-sm font-medium text-rescue-olive mb-2">
-                                            Adoption Fee ($)
-                                        </label>
-                                        <input
-                                            type="number"
-                                            value={formData.adoptionFee}
-                                            onChange={(e) => setFormData({ ...formData, adoptionFee: e.target.value })}
-                                            className="input"
-                                            placeholder="100"
-                                        />
-                                    </div>
                                 </div>
 
                                 <div className="mt-4">

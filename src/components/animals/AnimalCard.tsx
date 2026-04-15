@@ -1,9 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Heart, Calendar } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { Animal } from '@/types';
 
 interface AnimalCardProps {
@@ -11,152 +10,106 @@ interface AnimalCardProps {
     index?: number;
 }
 
-export function AnimalCard({ animal, index = 0 }: AnimalCardProps) {
-    const statusColors = {
-        available: 'bg-rescue-olive text-white',
-        pending: 'bg-timber-gold text-forest-shadow',
-        adopted: 'bg-heartbeat-clay text-white',
-        fostered: 'bg-rescue-olive-light text-white',
-    };
+/* index kept for future staggered reveal; currently not used */
 
-    const statusLabels = {
-        available: 'Available',
-        pending: 'Adoption Pending',
-        adopted: 'Adopted!',
-        fostered: 'In Foster Care',
-    };
 
+const statusCopy: Record<Animal['status'], string> = {
+    available: 'Available',
+    pending: 'Pending',
+    adopted: 'Adopted',
+    fostered: 'Fostered',
+};
+
+export function AnimalCard({ animal }: AnimalCardProps) {
     const hasImage = animal.images && animal.images.length > 0;
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-        >
-            <Link href={`/animals/${animal.id}`} className="block group">
-                <motion.article
-                    whileHover={{ y: -8 }}
-                    transition={{ duration: 0.3 }}
-                    className="card overflow-hidden bg-white border border-bone-white-dark/50 hover:border-timber-gold/30 hover:shadow-xl transition-all duration-300"
-                >
-                    {/* Image Container */}
-                    <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-timber-gold/10 to-rescue-olive/10">
+        <div>
+            <Link href={`/animals/${animal.id}`} className="group block">
+                <article>
+                    {/* Image */}
+                    <div className="relative aspect-[4/5] overflow-hidden bg-bone-white rounded-sm mb-5">
                         {hasImage ? (
                             <Image
                                 src={animal.images[0]}
-                                alt={`${animal.name} - ${animal.breed}`}
+                                alt={`${animal.name} — ${animal.breed}`}
                                 fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
                                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                             />
                         ) : (
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="w-24 h-24 rounded-full bg-timber-gold/30 flex items-center justify-center">
-                                    <span className="text-4xl">🐱</span>
-                                </div>
+                                <div className="font-display text-6xl text-paper-border">{animal.name.charAt(0)}</div>
                             </div>
                         )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                        {/* Gradient Overlay on hover */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-forest-shadow/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        {/* Status + medical strip */}
+                        <div className="absolute top-4 left-4 right-4 flex items-start justify-between gap-2">
+                            <div className="flex items-center gap-2 px-3 py-1.5 bg-cream/95 backdrop-blur-sm rounded-full">
+                                <span className={`w-1.5 h-1.5 rounded-full ${animal.status === 'available' ? 'bg-heartbeat-clay' :
+                                    animal.status === 'pending' ? 'bg-timber-gold' :
+                                        'bg-ink-muted'
+                                    }`} />
+                                <span className="font-mono text-[9px] tracking-[0.18em] uppercase text-ink">
+                                    {statusCopy[animal.status]}
+                                </span>
+                            </div>
 
-                        {/* Status Badge */}
-                        <div className="absolute top-3 left-3 z-10">
-                            <span className={`px-3 py-1.5 rounded-full text-xs font-bold shadow-lg ${statusColors[animal.status]}`}>
-                                {statusLabels[animal.status]}
-                            </span>
+                            {animal.medicalNeeds && animal.medicalNeeds.length > 0 && (
+                                <div className="px-3 py-1.5 bg-rescue-olive/90 backdrop-blur-sm rounded-full">
+                                    <span className="font-mono text-[9px] tracking-[0.18em] uppercase text-timber-gold-light">
+                                        Medical
+                                    </span>
+                                </div>
+                            )}
                         </div>
 
-                        {/* Featured Badge */}
                         {animal.featured && (
-                            <div className="absolute top-3 right-3 z-10">
-                                <motion.div
-                                    animate={{ scale: [1, 1.15, 1] }}
-                                    transition={{ duration: 2, repeat: Infinity }}
-                                    className="w-9 h-9 rounded-full bg-heartbeat-clay flex items-center justify-center shadow-lg"
-                                >
-                                    <Heart className="w-4 h-4 text-white fill-white" />
-                                </motion.div>
-                            </div>
-                        )}
-
-                        {/* Medical Needs Indicator */}
-                        {animal.medicalNeeds && animal.medicalNeeds.length > 0 && (
-                            <div className="absolute bottom-3 left-3 z-10">
-                                <span className="px-2 py-1 rounded-full bg-amber-500/90 text-white text-xs font-medium shadow">
-                                    💊 Special Care
+                            <div className="absolute bottom-4 left-4 px-3 py-1.5 bg-heartbeat-clay rounded-full">
+                                <span className="font-mono text-[9px] tracking-[0.18em] uppercase text-cream">
+                                    ★ Featured
                                 </span>
                             </div>
                         )}
-
-                        {/* Quick View Button */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            className="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
-                        >
-                            <span className="px-5 py-2.5 bg-white rounded-full text-rescue-olive font-semibold text-sm shadow-xl hover:bg-timber-gold hover:text-white transition-colors">
-                                Meet {animal.name}
-                            </span>
-                        </motion.div>
                     </div>
 
-                    {/* Card Content */}
-                    <div className="p-5">
-                        {/* Name and Age */}
-                        <div className="flex items-start justify-between mb-2">
-                            <h3 className="font-heading font-bold text-xl text-rescue-olive group-hover:text-heartbeat-clay transition-colors">
+                    {/* Meta + name */}
+                    <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1 min-w-0">
+                            <div className="font-mono text-[10px] tracking-[0.18em] uppercase text-ink-muted mb-1.5">
+                                {animal.breed} · {animal.gender === 'male' ? 'Boy' : 'Girl'} · {animal.age}
+                            </div>
+                            <h3 className="font-display text-3xl md:text-4xl text-ink leading-[0.95] group-hover:text-heartbeat-clay transition-colors">
                                 {animal.name}
                             </h3>
-                            <span className="text-sm text-rescue-olive-light bg-bone-white px-2 py-0.5 rounded-full">
-                                {animal.age}
-                            </span>
                         </div>
+                        <div className="flex-shrink-0 w-10 h-10 rounded-full border border-ink/20 group-hover:bg-ink group-hover:border-ink flex items-center justify-center transition-all">
+                            <ArrowUpRight className="w-3.5 h-3.5 text-ink group-hover:text-cream transition-colors" />
+                        </div>
+                    </div>
 
-                        {/* Breed and Gender */}
-                        <p className="text-sm text-rescue-olive-light mb-3 flex items-center gap-1.5">
-                            <span className={`inline-block w-2 h-2 rounded-full ${animal.gender === 'male' ? 'bg-blue-400' : 'bg-pink-400'}`}></span>
-                            {animal.breed} • {animal.gender === 'male' ? 'Boy' : 'Girl'}
-                        </p>
+                    {/* Description */}
+                    <p className="mt-3 text-sm text-ink-soft leading-relaxed line-clamp-2">
+                        {animal.shortDescription}
+                    </p>
 
-                        {/* Short Description */}
-                        <p className="text-sm text-rescue-olive/70 line-clamp-2 mb-4 leading-relaxed">
-                            {animal.shortDescription}
-                        </p>
-
-                        {/* Personality Tags */}
-                        <div className="flex flex-wrap gap-1.5 mb-4">
-                            {animal.personality.slice(0, 3).map((trait) => (
+                    {/* Personality traits */}
+                    <div className="mt-4 pt-4 border-t border-paper-border">
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                            {animal.personality.slice(0, 3).map((trait, i) => (
                                 <span
                                     key={trait}
-                                    className="px-2.5 py-1 bg-timber-gold/10 text-timber-gold-dark rounded-full text-xs font-medium"
+                                    className="font-mono text-[9px] tracking-[0.15em] uppercase text-ink-muted inline-flex items-center gap-2"
                                 >
+                                    {i > 0 && <span aria-hidden className="text-paper-border">·</span>}
                                     {trait}
                                 </span>
                             ))}
-                            {animal.personality.length > 3 && (
-                                <span className="px-2 py-1 text-rescue-olive-light text-xs">
-                                    +{animal.personality.length - 3} more
-                                </span>
-                            )}
-                        </div>
-
-                        {/* Footer */}
-                        <div className="flex items-center justify-between pt-4 border-t border-bone-white">
-                            <div className="flex items-center gap-1.5 text-xs text-rescue-olive-light">
-                                <Calendar className="w-3.5 h-3.5" />
-                                <span>Since {new Date(animal.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>
-                            </div>
-                            {animal.adoptionFee > 0 && (
-                                <span className="text-base font-bold text-timber-gold">
-                                    ${animal.adoptionFee}
-                                </span>
-                            )}
                         </div>
                     </div>
-                </motion.article>
+                </article>
             </Link>
-        </motion.div>
+        </div>
     );
 }

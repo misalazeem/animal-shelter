@@ -11,11 +11,9 @@ import {
     Edit,
     Trash2,
     Eye,
-    MoreVertical,
     Cat,
 } from 'lucide-react';
 import { animals } from '@/data/animals';
-import { Animal } from '@/types';
 
 export default function AdminAnimalsPage() {
     const [searchQuery, setSearchQuery] = useState('');

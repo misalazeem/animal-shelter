@@ -1,112 +1,117 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Heart, Home, Users } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import { donateUrl } from '@/lib/links';
+
+type Action = {
+    num: string;
+    title: string;
+    lead: string;
+    desc: string;
+    href: string;
+    external?: boolean;
+};
+
+const actions: Action[] = [
+    {
+        num: '01',
+        title: 'Donate',
+        lead: 'Fund the next rescue.',
+        desc: 'Your dollars cover vet bills, vaccines, medication, and the emergencies we cannot plan for. Every amount helps.',
+        href: donateUrl,
+        external: true,
+    },
+    {
+        num: '02',
+        title: 'Foster',
+        lead: 'Open your home.',
+        desc: 'Give a cat a warm place to rest between street and forever. We cover supplies and support you the whole way.',
+        href: '/foster',
+    },
+    {
+        num: '03',
+        title: 'Volunteer',
+        lead: 'Drive, share, show up.',
+        desc: 'Transport cats to vet visits. Share posts. Help at events. Every hand in the village matters.',
+        href: '/foster#volunteer',
+    },
+];
 
 export function VillageSection() {
-    const actions = [
-        {
-            icon: Heart,
-            title: 'DONATE',
-            desc: 'Cover medical bills for the next Simon',
-            href: '/donate',
-        },
-        {
-            icon: Home,
-            title: 'FOSTER',
-            desc: 'Give a couch-surfer a place to rest',
-            href: '/foster',
-        },
-        {
-            icon: Users,
-            title: 'VOLUNTEER',
-            desc: 'Drive, transport, and support',
-            href: '/foster#volunteer',
-        },
-    ];
-
     return (
-        <section className="py-24 md:py-32 bg-bone-white relative overflow-hidden">
-            <div className="container mx-auto px-6 md:px-12 relative z-10">
+        <section id="village" className="relative py-28 md:py-40 bg-bone-white overflow-hidden">
+            <div className="container mx-auto">
                 {/* Header */}
-                <div className="max-w-3xl mx-auto text-center mb-16 md:mb-20">
-                    <motion.span
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        className="text-timber-gold text-xs md:text-sm font-medium tracking-[0.3em] uppercase block mb-6"
-                    >
-                        Join The Village
-                    </motion.span>
-
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-rescue-olive mb-6"
-                    >
-                        Rescue takes a village
-                    </motion.h2>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="text-rescue-olive/60 text-lg md:text-xl max-w-2xl mx-auto"
-                    >
-                        We don't have deep pockets. We have you. Foster parents, volunteer drivers,
-                        donors—you are why we can say "yes" to the next wounded cat.
-                    </motion.p>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-16 md:mb-24">
+                    <div className="lg:col-span-6">
+                        <div className="chapter-mark mb-8">
+                            <span className="chapter-mark__num">06</span>
+                            <span>Join the Village</span>
+                        </div>
+                        <h2 className="font-display text-[clamp(2.5rem,5.5vw,5rem)] leading-[0.98] tracking-[-0.02em] text-ink">
+                            Rescue takes
+                            <br />
+                            <span className="text-heartbeat-clay">a village.</span>
+                        </h2>
+                    </div>
+                    <p className="lg:col-span-6 lg:pt-20 text-lg text-ink-soft leading-[1.7] max-w-[52ch]">
+                        We don&apos;t have deep pockets. We have you. Foster parents, volunteer drivers,
+                        donors — you are why we can say <em className="text-heartbeat-clay not-italic">yes</em> to
+                        the next wounded cat on the fence.
+                    </p>
                 </div>
 
-                {/* Action Cards - Minimal */}
-                <div className="grid md:grid-cols-3 gap-px bg-rescue-olive/10 max-w-4xl mx-auto mb-16">
-                    {actions.map((action, index) => (
-                        <motion.div
-                            key={action.title}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2 + index * 0.1 }}
-                            className="h-full"
-                        >
-                            <Link
+                {/* Numbered action rows */}
+                <div className="border-t border-paper-border">
+                    {actions.map((action) => {
+                        const content = (
+                            <div className="grid grid-cols-12 gap-x-6 gap-y-4 md:gap-x-8 lg:gap-x-10 items-start py-10 md:py-14 group">
+                                <div className="col-span-2 md:col-span-1">
+                                    <div className="font-mono text-[11px] tracking-[0.2em] uppercase text-timber-gold pt-2">
+                                        {action.num}
+                                    </div>
+                                </div>
+                                <div className="col-span-10 md:col-span-5">
+                                    <h3 className="font-display text-4xl md:text-5xl lg:text-6xl text-ink group-hover:text-heartbeat-clay transition-colors duration-500 leading-[0.95]">
+                                        {action.title}.
+                                    </h3>
+                                    <p className="mt-3 font-display text-lg md:text-xl text-ink-soft">
+                                        {action.lead}
+                                    </p>
+                                </div>
+                                <div className="col-span-12 md:col-span-5 md:pt-2">
+                                    <p className="text-ink-soft leading-[1.7] max-w-[42ch]">
+                                        {action.desc}
+                                    </p>
+                                </div>
+                                <div className="col-span-12 md:col-span-1 md:justify-self-end md:pt-2">
+                                    <div className="w-11 h-11 rounded-full border border-ink/20 group-hover:bg-ink group-hover:border-ink flex items-center justify-center transition-all duration-300">
+                                        <ArrowUpRight className="w-4 h-4 text-ink group-hover:text-cream transition-colors" />
+                                    </div>
+                                </div>
+                            </div>
+                        );
+
+                        const wrapClasses = "block border-b border-paper-border hover:bg-cream transition-colors duration-500";
+
+                        return action.external ? (
+                            <a
+                                key={action.title}
                                 href={action.href}
-                                className="flex flex-col items-center justify-center h-full min-h-[200px] bg-white p-8 md:p-10 text-center group border-2 border-transparent hover:border-timber-gold transition-all duration-300"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={wrapClasses}
                             >
-                                <action.icon className="w-8 h-8 mb-4 text-rescue-olive group-hover:text-timber-gold transition-colors" />
-                                <h3 className="text-lg font-bold tracking-wide text-rescue-olive group-hover:text-timber-gold transition-colors mb-2">
-                                    {action.title}
-                                </h3>
-                                <p className="text-rescue-olive/60 text-sm">
-                                    {action.desc}
-                                </p>
-                                <span className="mt-4 text-timber-gold opacity-0 group-hover:opacity-100 transition-opacity">
-                                    →
-                                </span>
+                                {content}
+                            </a>
+                        ) : (
+                            <Link key={action.title} href={action.href} className={wrapClasses}>
+                                {content}
                             </Link>
-                        </motion.div>
-                    ))}
+                        );
+                    })}
                 </div>
-
-                {/* Main CTA */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.5 }}
-                    className="text-center"
-                >
-                    <Link
-                        href="/donate"
-                        className="inline-flex items-center gap-3 px-10 py-5 bg-rescue-olive text-white font-semibold text-sm tracking-wide hover:bg-heartbeat-clay transition-colors duration-300"
-                    >
-                        <Heart className="w-5 h-5" />
-                        SUPPORT OUR MISSION
-                    </Link>
-                </motion.div>
             </div>
         </section>
     );
