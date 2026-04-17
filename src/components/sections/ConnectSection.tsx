@@ -60,8 +60,8 @@ export function ConnectSection() {
                                     <div className="font-mono text-[11px] tracking-[0.2em] uppercase text-timber-gold-light flex-shrink-0">
                                         {link.num}
                                     </div>
-                                    <div className="w-11 h-11 rounded-full border border-cream/15 flex items-center justify-center flex-shrink-0 group-hover:border-timber-gold-light group-hover:bg-timber-gold-light/10 transition-all">
-                                        <Icon className="w-4 h-4 text-cream/70 group-hover:text-timber-gold-light transition-colors" />
+                                    <div className="w-11 h-11 rounded-full border border-cream/15 text-cream/70 group-hover:text-timber-gold-light group-hover:border-timber-gold-light group-hover:bg-timber-gold-light/10 flex items-center justify-center flex-shrink-0 transition-[background-color,border-color,color] duration-300">
+                                        <Icon className="w-4 h-4" />
                                     </div>
                                     <div className="min-w-0">
                                         <div className="font-display text-2xl md:text-3xl text-cream leading-none group-hover:text-timber-gold-light transition-colors">

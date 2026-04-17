@@ -229,7 +229,7 @@ export default function AnimalDetailPage() {
                                 </a>
                                 <a
                                     href={`mailto:${links.email}?subject=Adoption%20inquiry%20about%20${encodeURIComponent(animal.name)}`}
-                                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 border border-ink/30 text-ink font-mono text-[10px] tracking-[0.18em] uppercase rounded-full hover:bg-ink hover:text-cream transition-all"
+                                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 border border-ink/30 text-ink font-mono text-[10px] tracking-[0.18em] uppercase rounded-full hover:bg-heartbeat-clay hover:text-cream hover:border-heartbeat-clay transition-[background-color,border-color,color] duration-300"
                                 >
                                     <Mail className="w-3.5 h-3.5" />
                                     Ask about {animal.name}

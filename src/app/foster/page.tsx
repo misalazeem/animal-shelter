@@ -59,7 +59,7 @@ export default function FosterPage() {
                             </a>
                             <Link
                                 href="#how-it-works"
-                                className="inline-flex items-center gap-2 px-6 py-3.5 border border-ink/25 text-ink font-mono text-[10px] tracking-[0.18em] uppercase rounded-full hover:bg-ink hover:text-cream transition-all"
+                                className="inline-flex items-center gap-2 px-6 py-3.5 border border-ink/25 text-ink font-mono text-[10px] tracking-[0.18em] uppercase rounded-full hover:bg-heartbeat-clay hover:text-cream hover:border-heartbeat-clay transition-[background-color,border-color,color] duration-300"
                             >
                                 How it works
                             </Link>
@@ -170,7 +170,7 @@ export default function FosterPage() {
                                     href={adoptApplicationUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group inline-flex items-center gap-2 px-7 py-4 border border-cream/25 text-cream font-mono text-[10px] tracking-[0.18em] uppercase rounded-full hover:bg-cream hover:text-ink transition-all"
+                                    className="group inline-flex items-center gap-2 px-7 py-4 border border-cream/25 text-cream font-mono text-[10px] tracking-[0.18em] uppercase rounded-full hover:bg-heartbeat-clay hover:border-heartbeat-clay transition-[background-color,border-color,color] duration-300"
                                 >
                                     Adoption form
                                     <ArrowUpRight className="w-3.5 h-3.5 group-hover:rotate-45 transition-transform" />

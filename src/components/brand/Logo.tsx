@@ -46,7 +46,7 @@ export function Logo({ size = 44, glow = false, className = '' }: LogoProps) {
                     alt="Random Rescuer"
                     fill
                     sizes={`${size}px`}
-                    className="object-cover scale-[1.15] -translate-y-[2%]"
+                    className="object-contain"
                     priority
                 />
             </span>

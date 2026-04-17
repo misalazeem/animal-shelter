@@ -64,7 +64,7 @@ export function Footer() {
                             </a>
                             <Link
                                 href="/foster"
-                                className="inline-flex items-center gap-2 px-6 py-3.5 border border-cream/25 text-cream font-mono text-[10px] tracking-[0.18em] uppercase rounded-full hover:bg-cream hover:text-ink hover:border-cream transition-all"
+                                className="inline-flex items-center gap-2 px-6 py-3.5 border border-cream/25 text-cream font-mono text-[10px] tracking-[0.18em] uppercase rounded-full hover:bg-heartbeat-clay hover:border-heartbeat-clay transition-[background-color,border-color,color] duration-300"
                             >
                                 Become a foster
                             </Link>

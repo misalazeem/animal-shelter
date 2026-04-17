@@ -76,7 +76,7 @@ export function HeroSection() {
                                 href={donateUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group inline-flex items-center gap-2 px-7 py-4 bg-transparent text-ink font-mono text-[10px] md:text-[11px] tracking-[0.18em] uppercase border border-ink/30 rounded-full hover:bg-ink hover:text-cream hover:border-ink transition-all duration-300"
+                                className="group inline-flex items-center gap-2 px-7 py-4 bg-transparent text-ink font-mono text-[10px] md:text-[11px] tracking-[0.18em] uppercase border border-ink/30 rounded-full hover:bg-heartbeat-clay hover:text-cream hover:border-heartbeat-clay transition-[background-color,border-color,color] duration-300"
                             >
                                 Support the mission
                                 <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
@@ -138,10 +138,10 @@ export function HeroSection() {
                                     </div>
                                     <Link
                                         href="/animals/sully"
-                                        className="flex items-center justify-center w-11 h-11 rounded-full bg-cream text-ink hover:bg-heartbeat-clay hover:text-cream transition-colors flex-shrink-0"
+                                        className="flex items-center justify-center w-11 h-11 rounded-full bg-cream text-ink hover:bg-heartbeat-clay hover:text-cream transition-[background-color,color] duration-300 flex-shrink-0"
                                         aria-label="Meet Sully"
                                     >
-                                        <ArrowUpRight className="w-4 h-4" />
+                                        <ArrowUpRight className="w-4 h-4" strokeWidth={2} />
                                     </Link>
                                 </div>
                             </div>
